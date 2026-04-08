@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Void property — restock order</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; font-size: 16px; background: #f5f5f5; color: #1a1a1a; padding: 1rem; }
+    h1 { font-size: 20px; font-weight: 600; margin-bottom: 1.25rem; }
+    h2 { font-size: 15px; font-weight: 600; margin-bottom: 0.75rem; }
+    .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    .field { margin-bottom: 0.85rem; }
+    label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+    input[type=text], input[type=date], select, textarea {
+      width: 100%; padding: 8px 10px; border: 1px solid #ccc;
+      border-radius: 6px; font-size: 15px; background: #fff; color: #1a1a1a;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .qty-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+    .qty-row:last-child { border-bottom: none; }
+    .qty-row label { margin: 0; font-size: 14px; color: #333; }
+    .qty-row input[type=number] { width: 70px; text-align: center; padding: 5px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; }
+    .check-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #f0f0f0; }
+    .check-row:last-child { border-bottom: none; }
+    .check-row label { margin: 0; font-size: 14px; color: #333; }
+    .check-row input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; }
+    .submit-btn { width: 100%; padding: 14px; font-size: 16px; font-weight: 600; background: #1a56db; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-top: 0.5rem; }
+    .submit-btn:hover { background: #1447c0; }
+    .hint { font-size: 12px; color: #888; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+<h1>Void property — restock order</h1>
+
+<div class="card">
+  <h2>Property details</h2>
+  <div class="row">
+    <div class="field"><label>Property address</label><input type="text" id="address" placeholder="e.g. 14 Oak Lane, M1 2AB"></div>
+    <div class="field"><label>Date of visit</label><input type="date" id="visitDate"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>Your name</label><input type="text" id="workerName" placeholder="Support worker name"></div>
+    <div class="field"><label>Bedrooms</label>
+      <select id="bedrooms">
+        <option value="">Select</option>
+        <option>Studio</option><option>1</option><option>2</option><option>3</option><option>4+</option>
+      </select>
+    </div>
+  </div>
+  <div class="field"><label>Urgency</label>
+    <select id="urgency">
+      <option>Standard — within 5 working days</option>
+      <option>Urgent — new tenant moving in within 48 hrs</option>
+      <option>ASAP — tenant already in property</option>
+    </select>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Kitchen</h2>
+  <div class="qty-row"><label>Plates</label><input type="number" id="plates" min="0" value="0"></div>
+  <div class="qty-row"><label>Bowls</label><input type="number" id="bowls" min="0" value="0"></div>
+  <div class="qty-row"><label>Mugs</label><input type="number" id="mugs" min="0" value="0"></div>
+  <div class="qty-row"><label>Glasses / tumblers</label><input type="number" id="glasses" min="0" value="0"></div>
+  <div class="qty-row"><label>Cutlery sets</label><input type="number" id="cutlery" min="0" value="0"></div>
+  <div class="qty-row"><label>Pots / saucepans</label><input type="number" id="pots" min="0" value="0"></div>
+  <div class="qty-row"><label>Frying pan</label><input type="number" id="pans" min="0" value="0"></div>
+  <div class="qty-row"><label>Baking tray</label><input type="number" id="baking" min="0" value="0"></div>
+  <div class="qty-row"><label>Tin opener</label><input type="number" id="tinopener" min="0" value="0"></div>
+  <div class="check-row"><label>Kettle needed?</label><input type="checkbox" id="kettle"></div>
+  <div class="check-row"><label>Toaster needed?</label><input type="checkbox" id="toaster"></div>
+</div>
+
+<div class="card">
+  <h2>Bedroom(s)</h2>
+  <div class="qty-row"><label>Single duvet sets</label><input type="number" id="singleDuvet" min="0" value="0"></div>
+  <div class="qty-row"><label>Double duvet sets</label><input type="number" id="doubleDuvet" min="0" value="0"></div>
+  <div class="qty-row"><label>Pillows</label><input type="number" id="pillows" min="0" value="0"></div>
+  <div class="qty-row"><label>Single curtains / blinds</label><input type="number" id="singleCurtains" min="0" value="0"></div>
+  <div class="qty-row"><label>Double curtains / blinds</label><input type="number" id="doubleCurtains" min="0" value="0"></div>
+  <div class="qty-row"><label>Hangers</label><input type="number" id="hangers" min="0" value="0"></div>
+</div>
+
+<div class="card">
+  <h2>Bathroom</h2>
+  <div class="qty-row"><label>Bath / shower mats</label><input type="number" id="bathMat" min="0" value="0"></div>
+  <div class="qty-row"><label>Towels</label><input type="number" id="towels" min="0" value="0"></div>
+  <div class="qty-row"><label>Toilet brush</label><input type="number" id="toiletBrush" min="0" value="0"></div>
+  <div class="check-row"><label>Shower curtain + rail needed?</label><input type="checkbox" id="showerCurtain"></div>
+</div>
+
+<div class="card">
+  <h2>Living room / hallway</h2>
+  <div class="qty-row"><label>Curtains / blinds</label><input type="number" id="loungeCurtains" min="0" value="0"></div>
+  <div class="qty-row"><label>Light bulbs needed</label><input type="number" id="lightbulbs" min="0" value="0"></div>
+  <div class="check-row"><label>Extension lead needed?</label><input type="checkbox" id="extension"></div>
+</div>
+
+<div class="card">
+  <h2>Cleaning &amp; supplies</h2>
+  <div class="check-row"><label>Mop + bucket</label><input type="checkbox" id="mop"></div>
+  <div class="check-row"><label>Brush + dustpan</label><input type="checkbox" id="brush"></div>
+  <div class="check-row"><label>Cleaning kit (sprays, cloths)</label><input type="checkbox" id="cleaningKit"></div>
+  <div class="check-row"><label>Bin + liners</label><input type="checkbox" id="bins"></div>
+  <div class="check-row"><label>Washing up bowl + brush</label><input type="checkbox" id="washingUp"></div>
+</div>
+
+<div class="card">
+  <h2>Notes &amp; flags</h2>
+  <div class="field">
+    <label>Anything else needed or flags for the facilities team?</label>
+    <textarea id="notes" placeholder="e.g. broken window latch in bedroom 2, missing shower head..."></textarea>
+  </div>
+</div>
+
+<button class="submit-btn" onclick="submitForm()">Send order to facilities team</button>
+<p class="hint" style="text-align:center; margin-top: 8px;">This will open your email app with the order pre-filled.</p>
+
+<script>
+  // ── CHANGE THIS TO YOUR EMAIL ADDRESS ──
+  const FACILITIES_EMAIL = "YOUR EMAIL HERE";
+
+  document.getElementById('visitDate').valueAsDate = new Date();
+
+  function submitForm() {
+    const g = id => document.getElementById(id);
+    const n = id => parseInt(g(id).value) || 0;
+    const c = id => g(id).checked;
+    const v = id => g(id).value.trim();
+
+    const address = v('address') || '(not entered)';
+    const date = v('visitDate') || '(not entered)';
+    const worker = v('workerName') || '(not entered)';
+    const bedrooms = v('bedrooms') || '(not selected)';
+    const urgency = v('urgency');
+
+    if (!v('address') || !v('workerName')) {
+      alert('Please enter the property address and your name before submitting.');
+      return;
+    }
+
+    let body = [];
+    body.push(`VOID PROPERTY RESTOCK ORDER`);
+    body.push(`============================`);
+    body.push(`Property:   ${address}`);
+    body.push(`Bedrooms:   ${bedrooms}`);
+    body.push(`Visit date: ${date}`);
+    body.push(`Submitted:  ${worker}`);
+    body.push(`Urgency:    ${urgency}`);
+    body.push(``);
+
+    const kitchen = [];
+    if (n('plates'))    kitchen.push(`  Plates: ${n('plates')}`);
+    if (n('bowls'))     kitchen.push(`  Bowls: ${n('bowls')}`);
+    if (n('mugs'))      kitchen.push(`  Mugs: ${n('mugs')}`);
+    if (n('glasses'))   kitchen.push(`  Glasses/tumblers: ${n('glasses')}`);
+    if (n('cutlery'))   kitchen.push(`  Cutlery sets: ${n('cutlery')}`);
+    if (n('pots'))      kitchen.push(`  Pots/saucepans: ${n('pots')}`);
+    if (n('pans'))      kitchen.push(`  Frying pans: ${n('pans')}`);
+    if (n('baking'))    kitchen.push(`  Baking trays: ${n('baking')}`);
+    if (n('tinopener')) kitchen.push(`  Tin openers: ${n('tinopener')}`);
+    if (c('kettle'))    kitchen.push(`  Kettle: REQUIRED`);
+    if (c('toaster'))   kitchen.push(`  Toaster: REQUIRED`);
+    if (kitchen.length) { body.push(`KITCHEN`); body = body.concat(kitchen); body.push(''); }
+
+    const bed = [];
+    if (n('singleDuvet'))    bed.push(`  Single duvet sets: ${n('singleDuvet')}`);
+    if (n('doubleDuvet'))    bed.push(`  Double duvet sets: ${n('doubleDuvet')}`);
+    if (n('pillows'))        bed.push(`  Pillows: ${n('pillows')}`);
+    if (n('singleCurtains')) bed.push(`  Single curtains/blinds: ${n('singleCurtains')}`);
+    if (n('doubleCurtains')) bed.push(`  Double curtains/blinds: ${n('doubleCurtains')}`);
+    if (n('hangers'))        bed.push(`  Hangers: ${n('hangers')}`);
+    if (bed.length) { body.push(`BEDROOM(S)`); body = body.concat(bed); body.push(''); }
+
+    const bath = [];
+    if (n('bathMat'))      bath.push(`  Bath/shower mats: ${n('bathMat')}`);
+    if (n('towels'))       bath.push(`  Towels: ${n('towels')}`);
+    if (n('toiletBrush'))  bath.push(`  Toilet brushes: ${n('toiletBrush')}`);
+    if (c('showerCurtain')) bath.push(`  Shower curtain + rail: REQUIRED`);
+    if (bath.length) { body.push(`BATHROOM`); body = body.concat(bath); body.push(''); }
+
+    const living = [];
+    if (n('loungeCurtains')) living.push(`  Curtains/blinds: ${n('loungeCurtains')}`);
+    if (n('lightbulbs'))     living.push(`  Light bulbs: ${n('lightbulbs')}`);
+    if (c('extension'))      living.push(`  Extension lead: REQUIRED`);
+    if (living.length) { body.push(`LIVING ROOM / HALLWAY`); body = body.concat(living); body.push(''); }
+
+    const clean = [];
+    if (c('mop'))         clean.push(`  Mop + bucket: REQUIRED`);
+    if (c('brush'))       clean.push(`  Brush + dustpan: REQUIRED`);
+    if (c('cleaningKit')) clean.push(`  Cleaning kit: REQUIRED`);
+    if (c('bins'))        clean.push(`  Bin + liners: REQUIRED`);
+    if (c('washingUp'))   clean.push(`  Washing up bowl + brush: REQUIRED`);
+    if (clean.length) { body.push(`CLEANING & SUPPLIES`); body = body.concat(clean); body.push(''); }
+
+    const notes = v('notes');
+    if (notes) { body.push(`NOTES`); body.push(`  ${notes}`); body.push(''); }
+
+    const subject = `Restock order — ${address} — ${urgency.split('—')[0].trim()}`;
+    const mailto = `mailto:${FACILITIES_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body.join('\n'))}`;
+    window.location.href = mailto;
+  }
+</script>
+
+</body>
+</html>
